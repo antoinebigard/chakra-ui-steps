@@ -17,6 +17,7 @@ export interface StepsProps extends HTMLChakraProps<'div'>, ThemingProps {
   state?: 'loading' | 'error';
   responsive?: boolean;
   checkIcon?: React.ComponentType<any>;
+  errorIcon?: React.ComponentType<any>;
   onClickStep?: (step: number) => void;
 }
 
@@ -41,6 +42,7 @@ export const Steps = forwardRef<StepsProps, 'div'>(
       // state,
       responsive,
       checkIcon,
+      errorIcon,
       onClickStep,
       ...rest
     } = omitThemingProps(props);
@@ -96,6 +98,7 @@ export const Steps = forwardRef<StepsProps, 'div'>(
               orientation,
               // state,
               checkIcon,
+              errorIcon,
               clickable,
               onClickStep,
             };
