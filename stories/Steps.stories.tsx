@@ -222,9 +222,13 @@ export const WithStates = (): JSX.Element => {
           </HStack>
         </RadioGroup>
       </VStack>
-      <Steps size={size} state={stepState} activeStep={activeStep}>
+      <Steps 
+        size={size} 
+        // state={stepState} 
+        activeStep={activeStep}
+      >
         {steps.map(({ label }, index) => (
-          <Step label={label} key={label}>
+          <Step label={label} key={label} state={index===0 ? 'error' : undefined} >
             <Content my={6} index={index} />
           </Step>
         ))}

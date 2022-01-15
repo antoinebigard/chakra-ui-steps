@@ -68,6 +68,10 @@ const baseStyleStepIconContainer: SystemStyleFunction = props => {
     _highlighted: {
       bg: activeColor,
       borderColor: activeColor,
+      _invalid: {
+        bg: 'red.500',
+        borderColor: 'red.500',
+      },
     },
     '&[data-clickable]:hover': {
       borderColor: activeColor,

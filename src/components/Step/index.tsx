@@ -23,6 +23,7 @@ export interface StepProps extends HTMLChakraProps<'div'> {
   label?: string | React.ReactNode;
   description?: string;
   icon?: React.ComponentType<any>;
+  state?: 'loading' | 'error';
 }
 
 // Props which shouldn't be passed to to the Step component from the user
@@ -34,8 +35,8 @@ interface StepInternalConfig extends ThemingProps {
   orientation?: 'vertical' | 'horizontal';
   isLoading?: boolean;
   isError?: boolean;
-  state?: 'loading' | 'error';
   checkIcon?: React.ComponentType<any>;
+  errorIcon?: React.ComponentType<any>;
   clickable?: boolean;
   onClickStep?: (index: number) => void;
 }
@@ -55,6 +56,7 @@ export const Step = forwardRef<StepProps, 'div'>(
   (props, ref: React.Ref<any>) => {
     const {
       checkIcon: CustomCheckIcon,
+      errorIcon: CustomErrorIcon,
       children,
       colorScheme: c,
       description: descriptionProp,
@@ -78,6 +80,10 @@ export const Step = forwardRef<StepProps, 'div'>(
     const Check = React.useMemo(
       () => (CustomCheckIcon ? CustomCheckIcon : CheckIcon),
       [CustomCheckIcon]
+    );
+    const ErrorIcon = React.useMemo(
+      () => (CustomErrorIcon ? CustomErrorIcon : AnimatedCloseIcon),
+      [CustomErrorIcon]
     );
 
     const {
@@ -136,6 +142,22 @@ export const Step = forwardRef<StepProps, 'div'>(
     };
 
     const renderIcon = React.useMemo(() => {
+      if (isError)
+      return (
+        <ErrorIcon
+          key="icon"
+          color="white"
+          {...animationConfig}
+          style={icon}
+        />
+      );
+      if (isLoading)
+      return (
+        <Spinner
+          width={icon.width as string}
+          height={icon.height as string}
+        />
+      );
       if (isCompletedStep) {
         return (
           <MotionFlex key="check-icon" {...animationConfig}>
@@ -143,24 +165,7 @@ export const Step = forwardRef<StepProps, 'div'>(
           </MotionFlex>
         );
       }
-      if (isCurrentStep) {
-        if (isError)
-          return (
-            <AnimatedCloseIcon
-              key="icon"
-              color="white"
-              {...animationConfig}
-              style={icon}
-            />
-          );
-        if (isLoading)
-          return (
-            <Spinner
-              width={icon.width as string}
-              height={icon.height as string}
-            />
-          );
-      }
+
       if (Icon)
         return (
           <MotionFlex key="step-icon" {...animationConfig}>
@@ -205,7 +210,7 @@ export const Step = forwardRef<StepProps, 'div'>(
             <chakra.div
               __css={stepIconContainerStyles}
               aria-current={isCurrentStep ? 'step' : undefined}
-              data-invalid={dataAttr(isCurrentStep && isError)}
+              data-invalid={dataAttr(isError)}
               data-highlighted={dataAttr(isCompletedStep)}
               data-clickable={dataAttr(clickable)}
             >
