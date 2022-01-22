@@ -57,10 +57,22 @@ const baseStyleStepIconContainer: SystemStyleFunction = props => {
     borderColor: inactiveColor,
     transitionProperty: 'background, border-color',
     transitionDuration: 'normal',
+    _valid: {
+      bg: activeColor,
+      borderColor: activeColor,
+    },
+    _invalid: {
+      bg: 'red.500',
+      borderColor: 'red.500',
+    },
     _activeStep: {
       bg: mode(darken(inactiveColor, 0.5), lighten(inactiveColor, 0.5))(props),
       borderColor: activeColor,
       _invalid: {
+        bg: 'red.500',
+        borderColor: 'red.500',
+      },
+      _success: {
         bg: 'red.500',
         borderColor: 'red.500',
       },
@@ -69,6 +81,10 @@ const baseStyleStepIconContainer: SystemStyleFunction = props => {
       bg: activeColor,
       borderColor: activeColor,
       _invalid: {
+        bg: 'red.500',
+        borderColor: 'red.500',
+      },
+      _valid: {
         bg: 'red.500',
         borderColor: 'red.500',
       },

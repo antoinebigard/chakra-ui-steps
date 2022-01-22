@@ -220,7 +220,7 @@ export const Step = forwardRef<StepProps, 'div'>(
               __css={stepIconContainerStyles}
               aria-current={isCurrentStep ? 'step' : undefined}
               data-invalid={dataAttr(isError)}
-              data-success={dataAttr(isSuccess)}
+              data-valid={dataAttr(isSuccess)}
               data-highlighted={dataAttr(isCompletedStep)}
               data-clickable={dataAttr(clickable)}
             >

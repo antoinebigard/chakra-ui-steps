@@ -228,7 +228,7 @@ export const WithStates = (): JSX.Element => {
         activeStep={activeStep}
       >
         {steps.map(({ label }, index) => (
-          <Step label={label} key={label} state={index===0 ? 'error' : undefined} >
+          <Step label={label} key={label} state={index===0 ? 'error' :index===1 ? 'success': undefined} >
             <Content my={6} index={index} />
           </Step>
         ))}
