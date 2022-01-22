@@ -14,7 +14,7 @@ import * as React from 'react';
 export interface StepsProps extends HTMLChakraProps<'div'>, ThemingProps {
   activeStep: number;
   orientation?: 'vertical' | 'horizontal';
-  state?: 'loading' | 'error';
+  state?: 'loading' | 'error' | 'success';
   responsive?: boolean;
   checkIcon?: React.ComponentType<any>;
   errorIcon?: React.ComponentType<any>;

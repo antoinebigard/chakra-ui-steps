@@ -23,7 +23,7 @@ export interface StepProps extends HTMLChakraProps<'div'> {
   label?: string | React.ReactNode;
   description?: string;
   icon?: React.ComponentType<any>;
-  state?: 'loading' | 'error';
+  state?: 'loading' | 'error' | 'success';
 }
 
 // Props which shouldn't be passed to to the Step component from the user
@@ -35,6 +35,7 @@ interface StepInternalConfig extends ThemingProps {
   orientation?: 'vertical' | 'horizontal';
   isLoading?: boolean;
   isError?: boolean;
+  isSuccess?: boolean;
   checkIcon?: React.ComponentType<any>;
   errorIcon?: React.ComponentType<any>;
   clickable?: boolean;
@@ -128,6 +129,7 @@ export const Step = forwardRef<StepProps, 'div'>(
 
     const isError = state === 'error';
     const isLoading = state === 'loading';
+    const isSuccess = state === 'success';
 
     const hasVisited = isCurrentStep || isCompletedStep;
 
@@ -158,6 +160,13 @@ export const Step = forwardRef<StepProps, 'div'>(
           height={icon.height as string}
         />
       );
+      if (isSuccess) {
+        return (
+          <MotionFlex key="check-icon" {...animationConfig}>
+            <Check color="white" style={icon} />
+          </MotionFlex>
+        );
+      }
       if (isCompletedStep) {
         return (
           <MotionFlex key="check-icon" {...animationConfig}>
@@ -177,7 +186,7 @@ export const Step = forwardRef<StepProps, 'div'>(
           {(index || 0) + 1}
         </AnimatedSpan>
       );
-    }, [isCompletedStep, isCurrentStep, isError, isLoading, Icon, icon]);
+    }, [isCompletedStep, isCurrentStep, isError, isLoading, isSuccess, Icon, icon]);
 
     return (
       <>
@@ -211,6 +220,7 @@ export const Step = forwardRef<StepProps, 'div'>(
               __css={stepIconContainerStyles}
               aria-current={isCurrentStep ? 'step' : undefined}
               data-invalid={dataAttr(isError)}
+              data-success={dataAttr(isSuccess)}
               data-highlighted={dataAttr(isCompletedStep)}
               data-clickable={dataAttr(clickable)}
             >
