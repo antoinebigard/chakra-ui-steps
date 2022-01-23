@@ -208,7 +208,7 @@ export const Step = forwardRef<StepProps, 'div'>(
             ...stepStyles,
           }}
         >
-          <chakra.div
+          <chakra.button
             __css={{
               display: 'flex',
               flexDir: 'row',
@@ -247,7 +247,7 @@ export const Step = forwardRef<StepProps, 'div'>(
                 </chakra.span>
               )}
             </chakra.div>
-          </chakra.div>
+          </chakra.button>
           <Connector
             colorScheme={c}
             isLastStep={isLastStep}
